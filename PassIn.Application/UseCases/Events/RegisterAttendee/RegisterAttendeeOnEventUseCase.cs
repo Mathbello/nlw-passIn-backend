@@ -12,7 +12,7 @@ public class RegisterAttendeeOnEventUseCase
 
     public RegisterAttendeeOnEventUseCase()
     {
-        var _dbContext = new PassInDbContext();
+        _dbContext = new PassInDbContext();
     }
 
     public ResponseRegisteredJson Execute( Guid eventId, RequestRegisterEventJson request)
@@ -64,7 +64,7 @@ public class RegisterAttendeeOnEventUseCase
         }
 
         var attendeesForEvent = _dbContext.Attendees.Count(attendee => attendee.Event_Id == eventId);
-        if (attendeesForEvent > eventEntity.Maximum_Attendees)
+        if (attendeesForEvent == eventEntity.Maximum_Attendees)
         {
             throw new ErrorOnValidationException("There is no room for this event.");
         }
